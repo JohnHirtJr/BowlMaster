@@ -37,6 +37,7 @@ public class StandingChecker : MonoBehaviour
             swiperAnim.SetTrigger("Swipe");
         }
         GetComponent<Collider>().enabled = false;
+        //test for github
     }
 
     void ReParent() {
