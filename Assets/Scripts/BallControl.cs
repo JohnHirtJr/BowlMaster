@@ -43,18 +43,16 @@ public class BallControl : MonoBehaviour
             var ySign = Mathf.Sign(distancey);
             distancey = 1300f*ySign;
         }
-        velocity = new Vector3(-distancex, 100f, -distancey*2.0f);
+        velocity = new Vector3(-distancex, -distancey/2, -distancey*2.3f);
         ball.Launch(velocity);
     }
 
     public void NudgeLeft()
     {
         ballNudge.transform.position -= new Vector3(5f,0f,0f);
-        print(transform.position.x);
     }
 
     public void NudgeRight() {
         ballNudge.transform.position += new Vector3(5f, 0f, 0f);
-        print(transform.position.x);
     }
 }

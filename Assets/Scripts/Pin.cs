@@ -12,11 +12,6 @@ public class Pin : MonoBehaviour
         quat = transform.rotation;
 	}
 
-	void Update ()
-	{
-        
-	}
-
     public void IsStanding() {
 
         if (transform.eulerAngles.x < 10f) {

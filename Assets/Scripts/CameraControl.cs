@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class CameraControl : MonoBehaviour
 {
@@ -11,12 +10,15 @@ public class CameraControl : MonoBehaviour
 	    offset = transform.position - ball.transform.position;
         
 	}
-	
 	// Update is called once per frame
 	void Update ()
 	{
-        //offset += new Vector3(0f,.1f,0f);
-	    if (ball.transform.position.z <= 1629f)
-            transform.position = ball.transform.position + offset;
+        if (ball.transform.position.z <= 1629f && ball.transform.position.y >= 0f)
+            transform.position -= ((transform.position - ball.transform.position) - offset) * .99f * Time.deltaTime;
+
+        else if(transform.position.z <= 1429f)
+        {
+            transform.position -= new Vector3(0 , -.05f ,(transform.position.z - 1629f ) * Time.deltaTime);
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
 
 public class Ball : MonoBehaviour
 {
@@ -16,11 +15,7 @@ public class Ball : MonoBehaviour
 	    ball.useGravity = false;
 	    ballRollingAudio = GetComponent<AudioSource>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
 
-    }
     void FixedUpdate() {
         ball.AddForce(force,0,0f, ForceMode.Acceleration);
 

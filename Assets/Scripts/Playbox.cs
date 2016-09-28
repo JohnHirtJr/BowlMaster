@@ -2,16 +2,11 @@
 
 public class Playbox : MonoBehaviour
 {
-    private GameObject standingChecker;
-    // Use this for initialization
+    private StandingChecker standingChecker;
+
     void Start()
     {
-        standingChecker = GameObject.Find("StandingChecker");
-    }
-
-    // Update is called once per frame
-    void Update() {
-
+        standingChecker = FindObjectOfType<StandingChecker>();
     }
 
     void OnTriggerExit(Collider coll) {

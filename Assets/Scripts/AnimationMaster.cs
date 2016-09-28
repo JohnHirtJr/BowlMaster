@@ -5,6 +5,7 @@ public class AnimationMaster : MonoBehaviour
 {
 
     public Ball ball;
+    public StandingChecker checker;
 	// Use this for initialization
 	void Start () {
 	
@@ -17,5 +18,10 @@ public class AnimationMaster : MonoBehaviour
 
     public void BallReset() {
         ball.ResetBall();
+    }
+
+    public void CheckerReset()
+    {
+        checker.CheckerReset();
     }
 }

@@ -2,42 +2,26 @@
 
 public class StandingChecker : MonoBehaviour
 {
-    public GameObject swiper;
     public GameObject pins;
     private Pin pin;
-    private Animator anim;
-    private Animator swiperAnim;
 	// Use this for initialization
 	void Start ()
 	{
 	    GetComponent<Collider>().enabled = false;
-	    anim = GetComponent<Animator>();
-	    swiperAnim = swiper.GetComponent<Animator>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
+    //disable collider via Animator
     void OnTriggerStay(Collider coll) {
-        print("i'm on now");
+        print("Standing Checker initialized. Parenting IsStanding pins.");
         if (coll.tag == "Pin") {
             pin = coll.gameObject.GetComponent<Pin>();
             coll.transform.parent = transform;
             pin.IsStanding();
         }
-        if (anim.GetBool("LiftBool") == false) {
-            //anim.SetBool("LiftBool", true);
-            anim.SetTrigger("Lift");
-        }
+    }
 
-        if (swiperAnim.GetBool("SwipeBool") == false) {
-            //swiperAnim.SetBool("SwipeBool", true);
-            swiperAnim.SetTrigger("Swipe");
-        }
+    public void CheckerReset() {
         GetComponent<Collider>().enabled = false;
-        //test for github
     }
 
     void ReParent() {

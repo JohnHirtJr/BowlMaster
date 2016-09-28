@@ -3,8 +3,6 @@ using UnityEngine.UI;
 
 public class PinsParent : MonoBehaviour
 {
-
-    public GameObject swiper;
     private GameObject pinsLeftText;
     private Text text;
     private Pin[] pins;
@@ -13,10 +11,6 @@ public class PinsParent : MonoBehaviour
 
         pinsLeftText = GameObject.Find("PinsLeft");
         text = pinsLeftText.GetComponent<Text>();
-    }
-
-	void Update () {
-
     }
 
     void IsStanding() {
