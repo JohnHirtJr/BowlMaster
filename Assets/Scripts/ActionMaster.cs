@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-public class ActionMaster : MonoBehaviour
+public static class ActionMaster
 {
 
     public enum Action {Tidy,EndTurn,Reset,EndGame};
@@ -11,14 +11,14 @@ public class ActionMaster : MonoBehaviour
     //private int[] frames = new int[21];
     private static List<int> scores = new List<int>();
 
-    void Start() {
-        foreach (var score in scores)
-        {
-            Debug.Log(score);
-        }
-        Debug.Log(scores.Count);
-        //Debug.Log(scores[3]+scores[1]);
-    }
+    //void Start() {
+    //    foreach (var score in scores)
+    //    {
+    //        Debug.Log(score);
+    //    }
+    //    Debug.Log(scores.Count);
+    //    //Debug.Log(scores[3]+scores[1]);
+    //}
 
     public static Action Bowl(int pinsKnockedDown)
     {
@@ -50,14 +50,15 @@ public class ActionMaster : MonoBehaviour
         if (scores.Count == 21)
             return Action.EndGame;
 
+
         if (scores.Count % 2 == 0) {
-            if (pinsKnockedDown == 10) {   //this might not need to be in here
-                return Action.EndTurn;
-            }
-            if (pinsKnockedDown < 10 || pinsKnockedDown >= 0) {
-                return Action.EndTurn;
-            }
-            return Action.Tidy;
+            //if (pinsKnockedDown == 10) {   
+            //    return Action.EndTurn;
+            //}
+            //if (pinsKnockedDown < 10 || pinsKnockedDown >= 0) {
+            //    return Action.Tidy;
+            //}
+            return Action.EndTurn;
         }
 
         if (pinsKnockedDown == 10) {
@@ -65,7 +66,7 @@ public class ActionMaster : MonoBehaviour
             return Action.EndTurn;
         }
 
-        if (pinsKnockedDown <= 10 || pinsKnockedDown >= 0) {
+        if (pinsKnockedDown < 10 || pinsKnockedDown >= 0) {
             return Action.Tidy;
         }
 
@@ -84,5 +85,8 @@ public class ActionMaster : MonoBehaviour
             return true;
         }
         return false;
+    }
+    public static void TestActionMaster() {
+        Debug.Log("Hello, ActionMaster here.");
     }
 }

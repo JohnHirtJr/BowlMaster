@@ -3,7 +3,7 @@
 public class Pin : MonoBehaviour
 {
     //public float standingThreshold;
-    private Quaternion quat;
+    public Quaternion quat;
     private new AudioSource audio;
 
 	void Start ()
@@ -11,18 +11,6 @@ public class Pin : MonoBehaviour
         audio = gameObject.GetComponent<AudioSource>();
         quat = transform.rotation;
 	}
-
-    public void IsStanding() {
-
-        if (transform.eulerAngles.x < 10f) {
-            transform.parent = null;
-        }
-        else
-        {
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            transform.rotation = quat;
-        }
-    }
 
     void OnCollisionEnter(Collision coll)
     {

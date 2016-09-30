@@ -1,38 +1,65 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class StandingChecker : MonoBehaviour
 {
-    public GameObject pins;
+    private GameObject pinsLeftText;
+    private AnimationMaster am;
+    private Text text;
     private Pin pin;
-	// Use this for initialization
-	void Start ()
-	{
+    private int lastChildCount = 10;
+    // Use this for initialization
+    void Start ()
+    {
+        am = FindObjectOfType<AnimationMaster>();
 	    GetComponent<Collider>().enabled = false;
+        pinsLeftText = GameObject.Find("PinsLeft");
+        text = pinsLeftText.GetComponent<Text>();
+        text.text = lastChildCount.ToString();
+        ActionMaster.ResetList();
 	}
-	
-    //disable collider via Animator
+
     void OnTriggerStay(Collider coll) {
-        print("Standing Checker initialized. Parenting IsStanding pins.");
+        print("Standing Checker initialized. Parenting standing pins.");
         if (coll.tag == "Pin") {
             pin = coll.gameObject.GetComponent<Pin>();
             coll.transform.parent = transform;
-            pin.IsStanding();
+            coll.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            coll.transform.rotation = pin.quat;
         }
     }
 
     public void CheckerReset() {
         GetComponent<Collider>().enabled = false;
+        Release();
     }
 
-    void ReParent() {
-        pins.GetComponent<PinsParent>().ReParent();
+    public void UpDateCurrentPinsOnEndTurn() {
+        lastChildCount = 10;
+        text.text = lastChildCount.ToString();
     }
 
     void Release() {
-        GetComponent<Collider>().enabled = false;
         transform.DetachChildren();
         print("releasing");
-        ReParent();
+        Pin[] pins = FindObjectsOfType<Pin>();
+        foreach (Pin pin in pins) {
+            pin.GetComponent<Rigidbody>().isKinematic = false;
+        }
+    }
+
+    public void CurrentPinCount() {
+        int currentChildCount = transform.childCount;
+        print("Current child count: "+currentChildCount);
+        int pinsKnockedDown = Mathf.Abs(lastChildCount - currentChildCount);
+        print("Pins knocked down: "+pinsKnockedDown);
+        //int pinsKnockedDown = pinsleft - lastChildCount;
+        //print("Pins knocked down: "+pinsKnockedDown);
+        text.text = pinsKnockedDown.ToString();
+        lastChildCount = currentChildCount;
+        print("Last child count: "+lastChildCount);
+        print("Updating pin count and choosing next action.");
+        am.ActionSelect(pinsKnockedDown);
     }
 
 }
